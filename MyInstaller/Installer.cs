@@ -19,21 +19,21 @@ namespace MyInstaller
         }
         public override void Install(IDictionary stateSaver)
         {
-            StreamWriter sw = new StreamWriter("C:\\Temp\\StemPOSOnBeforeInstall.txt", false);
+            //StreamWriter sw = new StreamWriter("C:\\Temp\\StemPOSOnBeforeInstall.txt", false);
 
-            //sw.WriteLine("savedState count : " + savedState.Count.ToString());
-            //sw.WriteLine("savedState keys : " + savedState.Keys.Count.ToString());
-            //sw.WriteLine("savedState values : " + savedState.Values.Count.ToString());
-            sw.WriteLine("USER TYPE : " + Context.Parameters["USERTYPE"].ToString());
-            sw.WriteLine("USER TYPE : " + Context.Parameters["version"]);
+            ////sw.WriteLine("savedState count : " + savedState.Count.ToString());
+            ////sw.WriteLine("savedState keys : " + savedState.Keys.Count.ToString());
+            ////sw.WriteLine("savedState values : " + savedState.Values.Count.ToString());
+            //sw.WriteLine("USER TYPE : " + Context.Parameters["USERTYPE"].ToString());
+            //sw.WriteLine("USER TYPE : " + Context.Parameters["version"]);
 
-            foreach (string k in Context.Parameters.Keys)
-            {
-                sw.WriteLine("ContextKey [" + k + "]=" + Context.Parameters[k].ToString());
-            }
+            //foreach (string k in Context.Parameters.Keys)
+            //{
+            //    sw.WriteLine("ContextKey [" + k + "]=" + Context.Parameters[k].ToString());
+            //}
 
-            sw.Flush();
-            sw.Close();
+            //sw.Flush();
+            //sw.Close();
             base.Install(stateSaver);
         }
 
@@ -43,7 +43,8 @@ namespace MyInstaller
             targetDir = targetDir.Substring(0, targetDir.Length - 1);
             var userType = Context.Parameters["USERTYPE"].ToString();
             userType = userType.Substring(0, userType.Length - 2);
-            System.IO.File.AppendAllText("C:\\Temp\\StemPOSOnAfterInstall.txt", "UserType " + userType + " \n" + "TargetDir" + targetDir + "\n");
+            
+            //System.IO.File.AppendAllText("C:\\Temp\\StemPOSOnAfterInstall.txt", "UserType " + userType + " \n" + "TargetDir" + targetDir + "\n");
             if (userType == "1")
             {
                 string shortcutLocation = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Stem POS Server.lnk");
@@ -68,19 +69,19 @@ namespace MyInstaller
             {
                 arguments = $"/C \"{targetDir}Client\\Stem POS.exe\"";
                 startInfo.Arguments = arguments;
-                System.IO.File.AppendAllText("C:\\Temp\\StemPOSOnAfterInstall.txt", "Arguments " + arguments + "\n");
+                //System.IO.File.AppendAllText("C:\\Temp\\StemPOSOnAfterInstall.txt", "Arguments " + arguments + "\n");
             }
             else
             {
                 arguments = $"/C \"{targetDir}Client\\Stem POS 32Bit.exe\"";
                 startInfo.Arguments = arguments;
-                System.IO.File.AppendAllText("C:\\Temp\\StemPOSOnAfterInstall.txt", "Arguments " + arguments + "\n");
+                //System.IO.File.AppendAllText("C:\\Temp\\StemPOSOnAfterInstall.txt", "Arguments " + arguments + "\n");
             }
             startInfo.Arguments = arguments;
             process.StartInfo = startInfo;
             process.Start();
 
-            System.IO.File.AppendAllText("C:\\Temp\\StemPOSOnAfterInstall.txt", "AfterInstall Finished");
+            //System.IO.File.AppendAllText("C:\\Temp\\StemPOSOnAfterInstall.txt", "AfterInstall Finished");
 
             base.OnAfterInstall(savedState);
         }
